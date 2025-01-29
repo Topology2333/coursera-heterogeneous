@@ -200,3 +200,8 @@ UpgradeLog*.XML
 
 # NuGet
 packages/
+
+# Cust
+*.txt
+*.gen
+compile_commands.json
