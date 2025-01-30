@@ -4,7 +4,7 @@
 
 #include <wb.h>
 
-#define BLOCK_SIZE 512 //@@ You can change this
+#define BLOCK_SIZE 1024 //@@ You can change this
 
 #define wbCheck(stmt)                                                          \
   do {                                                                         \
@@ -36,7 +36,7 @@ __global__ void total(float *input, float *output, int len) {
 
   for (int step = blockDim.x / 2; step > 0; step >>= 1) {
     if (tx < step)
-      partS[tx] += partS[tx + step];
+      partS[tx] += partS[tx ^ step];
     __syncthreads();
   }
   if (tx == 0)
@@ -44,6 +44,12 @@ __global__ void total(float *input, float *output, int len) {
 }
 
 int main(int argc, char **argv) {
+
+//   cudaDeviceProp prop;
+//   cudaGetDeviceProperties(&prop, 0);
+//   std::cout << "Max threads per block: " << prop.maxThreadsPerBlock
+//             << std::endl;
+
   int ii;
   wbArg_t args;
   float *hostInput;  // The input 1D list
