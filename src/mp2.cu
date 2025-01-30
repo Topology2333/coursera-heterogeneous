@@ -92,8 +92,6 @@ int main(int argc, char **argv) {
                      cudaMemcpyHostToDevice));
   wbCheck(cudaMemcpy(deviceB, hostB, numBRows * numBColumns * sizeof(float),
                      cudaMemcpyHostToDevice));
-  wbCheck(cudaMemcpy(deviceC, hostC, numCRows * numCColumns * sizeof(float),
-                     cudaMemcpyHostToDevice));
 
   wbTime_stop(GPU, "Copying input memory to the GPU.");
 
